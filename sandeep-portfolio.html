@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandeep Ranawat — WordPress Expert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0a0a0a;
+    --cream: #f5f0e8;
+    --warm: #ede6d6;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --rust: #b84a2e;
+    --muted: #6b6259;
+    --border: rgba(10,10,10,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.2s;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9997;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.6rem 3rem;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    border: 1.5px solid var(--ink);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.25s, color 0.25s;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--cream); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 6rem 3rem;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4.5rem, 8vw, 8rem);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--rust);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+    letter-spacing: 0.01em;
+  }
+  .hero-desc {
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: var(--muted);
+    max-width: 380px;
+    margin-bottom: 3rem;
+    letter-spacing: 0.02em;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+  }
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.9rem 2.2rem;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    transition: background 0.25s;
+    border: 2px solid var(--ink);
+  }
+  .btn-primary:hover { background: var(--rust); border-color: var(--rust); }
+  .btn-secondary {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.9rem 2.2rem;
+    border: 1.5px solid var(--muted);
+    color: var(--muted);
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-secondary:hover { border-color: var(--ink); color: var(--ink); }
+
+  .hero-right {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-visual {
+    width: 100%; height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: 3rem; right: 3rem;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: var(--warm);
+    animation: spin-slow 20s linear infinite;
+    z-index: 3;
+  }
+  .hero-badge-inner { text-align: center; }
+  .hero-badge-inner span:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    display: block;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .hero-badge-inner span:last-child {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Large geometric BG */
+  .hero-geo {
+    position: absolute;
+    right: -5%;
+    top: 10%;
+    width: 55%;
+    height: 80%;
+    background: var(--warm);
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 0;
+  }
+  .hero-geo-2 {
+    position: absolute;
+    right: 8%;
+    top: 15%;
+    width: 42%;
+    height: 65%;
+    border: 1.5px solid var(--border);
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 1;
+  }
+  /* Floating grid of dots */
+  .dots-grid {
+    position: absolute;
+    top: 2rem; left: 2rem;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    opacity: 0.3;
+    z-index: 0;
+  }
+  .dots-grid span {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--muted);
+    display: block;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem; left: 3rem;
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .scroll-line {
+    width: 3rem; height: 1px;
+    background: var(--muted);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%; top: 0; height: 100%; width: 100%;
+    background: var(--gold);
+    animation: line-move 2s ease-in-out infinite;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    padding: 1rem 0;
+    background: var(--ink);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 4rem;
+    animation: marquee 18s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .marquee-item {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.7;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .marquee-item::after {
+    content: '◆';
+    color: var(--gold);
+    font-size: 0.5rem;
+    opacity: 1;
+  }
+
+  /* SECTION LAYOUT */
+  section { padding: 7rem 3rem; }
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 1.5rem; height: 1px;
+    background: var(--gold);
+  }
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+  .section-heading em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 2rem;
+  }
+  .stat-box {
+    background: var(--warm);
+    padding: 2rem 1.8rem;
+    border: 1px solid var(--border);
+  }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-number sup { font-size: 1.5rem; color: var(--gold); }
+  .stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .about-text-block p {
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+  .about-text-block p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .skills-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  .tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .tag:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+  /* SERVICES */
+  .services-section { background: var(--ink); color: var(--cream); }
+  .services-section .section-label { color: var(--gold-light); }
+  .services-section .section-label::before { background: var(--gold-light); }
+  .services-section .section-heading { color: var(--cream); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 1rem;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .service-card {
+    padding: 3rem 2.2rem;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    transition: background 0.3s;
+    overflow: hidden;
+  }
+  .service-card:last-child { border-right: none; }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover { background: rgba(255,255,255,0.04); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .service-icon {
+    width: 2.5rem; height: 2.5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .service-desc {
+    font-size: 0.72rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.02em;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 1rem;
+  }
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--warm);
+    cursor: none;
+  }
+  .project-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+  }
+  .project-card:hover img { transform: scale(1.08); }
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.2) 60%, transparent 100%);
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    transform: translateY(0.5rem);
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover .project-overlay { transform: translateY(0); }
+  .project-type {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(0.5rem);
+    transition: all 0.35s ease 0.05s;
+  }
+  .project-card:hover .project-type { opacity: 1; transform: translateY(0); }
+  .project-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+  .project-sub {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(0.5rem);
+    transition: all 0.35s ease 0.1s;
+  }
+  .project-card:hover .project-link { opacity: 1; transform: translateY(0); }
+  .project-link::after { content: '→'; }
+
+  /* WHY CHOOSE */
+  .why-section {
+    background: var(--warm);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .why-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .why-list {
+    display: flex; flex-direction: column; gap: 0;
+    margin-top: 1rem;
+  }
+  .why-item {
+    display: flex; align-items: flex-start; gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.3s;
+  }
+  .why-item:hover { padding-left: 0.5rem; }
+  .why-item:first-child { border-top: 1px solid var(--border); }
+  .why-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    min-width: 2.5rem;
+    padding-top: 0.2rem;
+  }
+  .why-content h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .why-content p {
+    font-size: 0.72rem;
+    line-height: 1.8;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .why-cta-box {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 3.5rem;
+    position: sticky;
+    top: 7rem;
+  }
+  .why-cta-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .why-cta-box h3 em { font-style: italic; color: var(--gold-light); }
+  .why-cta-box p {
+    font-size: 0.72rem;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+  .free-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  /* CONTACT */
+  .contact-section { background: var(--ink); color: var(--cream); }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .contact-section .section-label { color: var(--gold-light); }
+  .contact-section .section-label::before { background: var(--gold-light); }
+  .contact-section .section-heading { color: var(--cream); }
+  .contact-info { margin-top: 2rem; }
+  .contact-line {
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .contact-line:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+  .contact-line-icon {
+    width: 2.5rem; height: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .contact-line-detail span:first-child {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.3rem;
+  }
+  .contact-line-detail span:last-child {
+    font-size: 0.82rem;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+  }
+  .contact-line-detail a {
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-line-detail a:hover { color: var(--gold-light); }
+
+  /* Form */
+  .contact-form { margin-top: 2rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    padding: 0.9rem 1.2rem;
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 0.02em;
+    resize: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-submit {
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1.1rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: none;
+    font-weight: 500;
+    transition: background 0.25s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: #050505;
+    color: rgba(255,255,255,0.3);
+    padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  footer .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+  }
+  footer .logo span { color: var(--gold); }
+  footer p { font-size: 0.62rem; letter-spacing: 0.06em; }
+
+  /* ANIMATIONS */
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes line-move {
+    0% { left: -100%; }
+    50% { left: 0%; }
+    100% { left: 100%; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(2rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .anim { opacity: 0; }
+  .anim.in { animation: fade-up 0.7s cubic-bezier(0.23,1,0.32,1) forwards; }
+  .anim-d1 { animation-delay: 0.1s; }
+  .anim-d2 { animation-delay: 0.2s; }
+  .anim-d3 { animation-delay: 0.3s; }
+  .anim-d4 { animation-delay: 0.4s; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 0.9rem 1.8rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    z-index: 9999;
+    transform: translateY(5rem);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 4rem; }
+    .hero-left { padding: 4rem 1.5rem 3rem; }
+    .hero-right { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .about-grid, .why-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .service-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="toast" id="toast">Message sent! I'll reply soon.</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Sandeep<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag anim anim-d1">WordPress & WooCommerce Expert</div>
+    <h1 class="hero-name anim anim-d2">I Build<br><em>Websites</em><br>That Sell.</h1>
+    <div class="hero-title anim anim-d3">Fast · Responsive · Conversion-Optimised</div>
+    <p class="hero-desc anim anim-d4">Helping businesses launch stunning digital presences with clean UI, blazing speed, and a relentless focus on results — using WordPress & Elementor.</p>
+    <div class="hero-actions anim anim-d4">
+      <a class="btn-primary" href="#contact">Start a Project</a>
+      <a class="btn-secondary" href="#work">View My Work</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-geo"></div>
+    <div class="hero-geo-2"></div>
+    <div class="dots-grid">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-inner">
+        <span>5+</span>
+        <span>Years<br>Experience</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">WordPress Development</div>
+    <div class="marquee-item">WooCommerce Stores</div>
+    <div class="marquee-item">Elementor Expert</div>
+    <div class="marquee-item">Speed Optimisation</div>
+    <div class="marquee-item">SEO-Ready Builds</div>
+    <div class="marquee-item">Mobile-First Design</div>
+    <div class="marquee-item">Landing Pages</div>
+    <div class="marquee-item">Business Websites</div>
+    <div class="marquee-item">WordPress Development</div>
+    <div class="marquee-item">WooCommerce Stores</div>
+    <div class="marquee-item">Elementor Expert</div>
+    <div class="marquee-item">Speed Optimisation</div>
+    <div class="marquee-item">SEO-Ready Builds</div>
+    <div class="marquee-item">Mobile-First Design</div>
+    <div class="marquee-item">Landing Pages</div>
+    <div class="marquee-item">Business Websites</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label anim">About Me</div>
+      <h2 class="section-heading anim">Crafting Digital<br>Experiences with<br><em>Purpose</em></h2>
+      <div class="about-stats">
+        <div class="stat-box anim">
+          <div class="stat-number">50<sup>+</sup></div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-box anim anim-d1">
+          <div class="stat-number">5<sup>+</sup></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-box anim anim-d2">
+          <div class="stat-number">98<sup>%</sup></div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-box anim anim-d3">
+          <div class="stat-number">3x</div>
+          <div class="stat-label">Avg Speed Improvement</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-text-block anim">
+      <p>I'm <strong>Sandeep Ranawat</strong>, a dedicated WordPress & WooCommerce developer based in India. I specialise in building modern, <strong>fast-loading, conversion-focused websites</strong> using Elementor — designed not just to look great, but to work hard for your business.</p>
+      <p>Every project I take on is treated as a long-term partnership. I bring meticulous attention to detail, clean code practices, and a deep understanding of what it takes to <strong>turn visitors into customers</strong>.</p>
+      <p>Whether you're a startup launching your first website or an established business in need of a refresh — I'm here to help you build something that truly stands out online.</p>
+      <div class="skills-tags">
+        <span class="tag">WordPress</span>
+        <span class="tag">WooCommerce</span>
+        <span class="tag">Elementor</span>
+        <span class="tag">PHP</span>
+        <span class="tag">CSS / HTML</span>
+        <span class="tag">Speed Optimisation</span>
+        <span class="tag">SEO</span>
+        <span class="tag">Responsive Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services-section">
+  <div class="section-label anim">What I Do</div>
+  <h2 class="section-heading anim">Services Built<br>for <em>Growth</em></h2>
+  <div class="services-grid">
+    <div class="service-card anim">
+      <div class="service-number">01</div>
+      <svg class="service-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="6" width="32" height="22" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <line x1="4" y1="13" x2="36" y2="13" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <circle cx="9" cy="9.5" r="1.5" fill="rgba(201,168,76,0.8)"/>
+        <circle cx="14" cy="9.5" r="1.5" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="19" cy="9.5" r="1.5" fill="rgba(255,255,255,0.3)"/>
+        <line x1="16" y1="34" x2="24" y2="34" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <line x1="20" y1="28" x2="20" y2="34" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+      </svg>
+      <div class="service-name">WordPress Development</div>
+      <div class="service-desc">Fully custom WordPress websites built to reflect your brand identity, optimised for performance and easy to manage long-term.</div>
+    </div>
+    <div class="service-card anim anim-d1">
+      <div class="service-number">02</div>
+      <svg class="service-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="8" width="22" height="16" rx="1.5" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <rect x="10" y="26" width="10" height="6" rx="1" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <circle cx="30" cy="28" r="7" stroke="rgba(201,168,76,0.8)" stroke-width="1.5"/>
+        <path d="M27.5 28h5M30 25.5v5" stroke="rgba(201,168,76,0.8)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="service-name">WooCommerce Stores</div>
+      <div class="service-desc">Complete ecommerce solutions with smooth checkout flows, product management, and payment gateway integration.</div>
+    </div>
+    <div class="service-card anim anim-d2">
+      <div class="service-number">03</div>
+      <svg class="service-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="28" height="28" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <rect x="11" y="11" width="8" height="6" rx="1" fill="rgba(201,168,76,0.4)" stroke="rgba(201,168,76,0.8)" stroke-width="1"/>
+        <rect x="11" y="21" width="18" height="2" rx="1" fill="rgba(255,255,255,0.25)"/>
+        <rect x="11" y="25" width="14" height="2" rx="1" fill="rgba(255,255,255,0.15)"/>
+        <rect x="23" y="11" width="6" height="6" rx="1" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      </svg>
+      <div class="service-name">Elementor Landing Pages</div>
+      <div class="service-desc">High-converting landing pages crafted with pixel precision in Elementor — designed around your specific campaign goals.</div>
+    </div>
+    <div class="service-card anim anim-d3">
+      <div class="service-number">04</div>
+      <svg class="service-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 28 L14 18 L19 23 L25 13 L32 20" stroke="rgba(201,168,76,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="32" cy="12" r="4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <path d="M30.5 12h3M32 10.5v3" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="service-name">Speed & SEO Optimisation</div>
+      <div class="service-desc">Performance audits and technical SEO improvements to boost Core Web Vitals scores, rankings, and user experience.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-label anim">Recent Work</div>
+  <h2 class="section-heading anim">Selected<br><em>Projects</em></h2>
+  <div class="projects-grid">
+    <div class="project-card anim">
+      <img src="https://i.postimg.cc/ZRTZ6pt0/c5feceb193212691b6dbd86b2fc9aaef.webp" alt="Business Website" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-type">Corporate / B2B</div>
+        <div class="project-name">Business Website</div>
+        <div class="project-sub">Clean corporate design, optimised for leads</div>
+        <a class="project-link" href="#">View Project</a>
+      </div>
+    </div>
+    <div class="project-card anim anim-d1">
+      <img src="https://i.postimg.cc/gJS9R7KX/378e2104591fff8061b5ccbc7bf33bea.webp" alt="Ecommerce Store" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-type">WooCommerce / Ecommerce</div>
+        <div class="project-name">Ecommerce Store</div>
+        <div class="project-sub">Full WooCommerce with checkout & payments</div>
+        <a class="project-link" href="#">View Project</a>
+      </div>
+    </div>
+    <div class="project-card anim anim-d2">
+      <img src="https://i.postimg.cc/XYbVnTHL/original-17521e86823d09eec75a072b7cacd1cd.webp" alt="Landing Page" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-type">Marketing / Conversions</div>
+        <div class="project-name">Landing Page</div>
+        <div class="project-sub">High-converting campaign landing page</div>
+        <a class="project-link" href="#">View Project</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section class="why-section">
+  <div class="why-inner">
+    <div>
+      <div class="section-label anim">Why Choose Me</div>
+      <h2 class="section-heading anim">The Advantage<br>of Working<br>with <em>Me</em></h2>
+      <div class="why-list">
+        <div class="why-item anim">
+          <div class="why-num">01</div>
+          <div class="why-content">
+            <h4>Fast, Reliable Delivery</h4>
+            <p>I respect your timelines. Projects are delivered on schedule with clear communication at every stage.</p>
+          </div>
+        </div>
+        <div class="why-item anim">
+          <div class="why-num">02</div>
+          <div class="why-content">
+            <h4>Clean, Intentional Design</h4>
+            <p>No templates, no bloat — every website is purposefully designed to match your brand and goals.</p>
+          </div>
+        </div>
+        <div class="why-item anim">
+          <div class="why-num">03</div>
+          <div class="why-content">
+            <h4>Mobile-First & Responsive</h4>
+            <p>Every build is tested across devices to ensure a flawless experience wherever your audience is.</p>
+          </div>
+        </div>
+        <div class="why-item anim">
+          <div class="why-num">04</div>
+          <div class="why-content">
+            <h4>SEO-Ready from Day One</h4>
+            <p>Structured for search engines out of the box — semantic markup, fast load times, clean code.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="why-cta-box anim">
+        <div class="free-badge">✦ Limited Offer</div>
+        <h3>Get a <em>Free</em> Sample Homepage for Your Project</h3>
+        <p>Not sure what your website could look like? I'll create a free sample homepage so you can see the quality before committing to anything.</p>
+        <a class="btn-primary" href="#contact" style="display:inline-block;">Claim Free Sample</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div>
+      <div class="section-label anim">Get In Touch</div>
+      <h2 class="section-heading anim">Let's Build<br>Something<br><em>Great</em></h2>
+      <div class="contact-info">
+        <div class="contact-line anim">
+          <div class="contact-line-icon">📞</div>
+          <div class="contact-line-detail">
+            <span>Phone</span>
+            <span><a href="tel:9630621358">+91 9630 621 358</a></span>
+          </div>
+        </div>
+        <div class="contact-line anim anim-d1">
+          <div class="contact-line-icon">✉</div>
+          <div class="contact-line-detail">
+            <span>Email</span>
+            <span><a href="mailto:sandeepranawat1998@gmail.com">sandeepranawat1998@gmail.com</a></span>
+          </div>
+        </div>
+        <div class="contact-line anim anim-d2">
+          <div class="contact-line-icon">⏱</div>
+          <div class="contact-line-detail">
+            <span>Response Time</span>
+            <span>Within 24 hours</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form anim">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="John Smith" id="fname">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@company.com" id="femail">
+        </div>
+        <div class="form-group">
+          <label>What do you need?</label>
+          <input type="text" placeholder="e.g. WooCommerce Store, Business Website..." id="fservice">
+        </div>
+        <div class="form-group">
+          <label>Tell me more</label>
+          <textarea rows="4" placeholder="Briefly describe your project, timeline, and budget..." id="fmessage"></textarea>
+        </div>
+        <button class="form-submit" id="formSubmit">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Sandeep<span>.</span></div>
+  <p>© 2026 Sandeep Ranawat — WordPress & WooCommerce Expert</p>
+  <p>Built with craft & intention</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 5 + 'px';
+    cursor.style.top = my - 5 + 'px';
+  });
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function animRing() {
+    rx = lerp(rx, mx, 0.12); ry = lerp(ry, my, 0.12);
+    ring.style.left = rx - 18 + 'px'; ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a, button, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'scale(1.4)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; });
+  });
+
+  // Scroll animations
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+
+  // Trigger hero anims immediately
+  document.querySelectorAll('.hero .anim').forEach(el => {
+    setTimeout(() => el.classList.add('in'), 100);
+  });
+
+  // Form
+  document.getElementById('formSubmit').addEventListener('click', () => {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    if (!name || !email) { alert('Please fill in your name and email.'); return; }
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+    document.getElementById('fname').value = '';
+    document.getElementById('femail').value = '';
+    document.getElementById('fservice').value = '';
+    document.getElementById('fmessage').value = '';
+  });
+
+  // Smooth nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
